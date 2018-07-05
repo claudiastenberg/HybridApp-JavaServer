@@ -1,31 +1,24 @@
 package se.claudiastenberg.tomcla.model;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-/**
- * Table in the database with User.
- */
-
 @Entity
-public class User {
-
+public class Consult {
     @Id
     @GeneratedValue
     private Long id;
     private String firstName;
     private String secondName;
-    private Long idNumber;
-    private String company;
+    //private Appoinment;
 
-    protected User (){}
+    protected Consult(){}
 
-    public User(String firstName, String secondName, Long idNumber, String company) {
+    public Consult(String firstName, String secondName) {
         this.firstName = firstName;
         this.secondName = secondName;
-        this.idNumber = idNumber;
-        this.company = company;
     }
 
     public Long getId() {
@@ -38,13 +31,5 @@ public class User {
 
     public String getSecondName() {
         return secondName;
-    }
-
-    public Long getIdNumber() {
-        return idNumber;
-    }
-
-    public String getCompany() {
-        return company;
     }
 }
