@@ -1,9 +1,12 @@
 package se.claudiastenberg.tomcla.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 
 @Entity
 public class Consult {
@@ -12,7 +15,7 @@ public class Consult {
     private Long id;
     private String firstName;
     private String secondName;
-    //private Appoinment;
+
 
     protected Consult(){}
 

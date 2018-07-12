@@ -1,10 +1,13 @@
 package se.claudiastenberg.tomcla.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 
 @Entity
 public class Appointment {
@@ -13,15 +16,20 @@ public class Appointment {
     @GeneratedValue
     private Long id;
     private String description;
-    private User user;
-    private Consult consult;
+    /*@ManyToOne
+    @JsonBackReference
+    private User user;*/
+    @OneToMany(mappedBy = "appointment", fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private Collection<User> user;
+
+    //private User user;
+    //private Consult consult;
 
     protected Appointment(){}
 
-    public Appointment(String description, User user, Consult consult) {
+    public Appointment(String description) {
         this.description = description;
-        this.user = user;
-        this.consult = consult;
     }
 
     public Long getId() {
@@ -32,11 +40,7 @@ public class Appointment {
         return description;
     }
 
-    public User getUser() {
+    public Collection<User> getUser() {
         return user;
-    }
-
-    public Consult getConsult() {
-        return consult;
     }
 }
