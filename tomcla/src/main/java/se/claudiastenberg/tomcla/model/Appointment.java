@@ -2,12 +2,8 @@ package se.claudiastenberg.tomcla.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
 
 @Entity
 public class Appointment {
@@ -16,20 +12,18 @@ public class Appointment {
     @GeneratedValue
     private Long id;
     private String description;
-    /*@ManyToOne
-    @JsonBackReference
-    private User user;*/
     @OneToMany(mappedBy = "appointment", fetch = FetchType.EAGER)
     @JsonManagedReference
     private Collection<User> user;
-
-    //private User user;
-    //private Consult consult;
+    @ManyToOne
+    @JsonBackReference
+    private Consult consults;
 
     protected Appointment(){}
 
-    public Appointment(String description) {
+    public Appointment(String description, Consult consults) {
         this.description = description;
+        this.consults= consults;
     }
 
     public Long getId() {
@@ -42,5 +36,9 @@ public class Appointment {
 
     public Collection<User> getUser() {
         return user;
+    }
+
+    public Consult getConsults() {
+        return consults;
     }
 }

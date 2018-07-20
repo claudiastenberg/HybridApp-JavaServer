@@ -1,12 +1,9 @@
 package se.claudiastenberg.tomcla.model;
 
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
 
 @Entity
 public class Consult {
@@ -15,7 +12,9 @@ public class Consult {
     private Long id;
     private String firstName;
     private String secondName;
-
+    @OneToMany(mappedBy = "consults", fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private Collection<Appointment> appointment;
 
     protected Consult(){}
 
@@ -34,5 +33,9 @@ public class Consult {
 
     public String getSecondName() {
         return secondName;
+    }
+
+    public Collection<Appointment> getAppointment() {
+        return appointment;
     }
 }
